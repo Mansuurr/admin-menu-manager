@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
-export const useMenuStore = create((set) => ({
-  menu: [
+export const useMenuStore = create((set, get) => ({
+  menu: JSON.parse(localStorage.getItem("menu")) || [
     { name: "Users", link: "/users", role: "admin", icon: "user" }
   ],
 
@@ -12,13 +12,18 @@ export const useMenuStore = create((set) => ({
 
   updateItem: (index, field, value) =>
     set((state) => {
-      const updated = [...state.menu];
-      updated[index][field] = value;
-      return { menu: updated };
+      const menu = [...state.menu];
+      menu[index][field] = value;
+      return { menu };
     }),
 
   deleteItem: (index) =>
     set((state) => ({
       menu: state.menu.filter((_, i) => i !== index),
     })),
+
+  saveMenu: () => {
+    const menu = get().menu;
+    localStorage.setItem("menu", JSON.stringify(menu));
+  },
 }));

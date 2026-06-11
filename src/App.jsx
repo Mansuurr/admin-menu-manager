@@ -1,20 +1,40 @@
 import { useMenuStore } from "./store/menuStore";
 
 export default function App() {
+const saveMenu = useMenuStore((state) => state.saveMenu);
+const handleSave = () => {
+  saveMenu();
+  alert("Menu saved successfully!");
+};
 const menu = useMenuStore((state) => state.menu);
 const addItem = useMenuStore((state) => state.addItem);
 const updateItem = useMenuStore((state) => state.updateItem);
 const deleteItem = useMenuStore((state) => state.deleteItem);
   return (
+    
     <div className="p-10">
       <h1 className="text-2xl font-bold mb-4">Menu Editor</h1>
 
       <button
-        onClick={addItem}
+        onClick={() =>
+  addItem({
+    name: "",
+    link: "",
+    role: "",
+    icon: "",
+  })
+}
         className="bg-green-500 text-white px-4 py-2 rounded mb-4"
       >
         Add Item
       </button>
+
+      <button
+  onClick={handleSave}
+  className="bg-blue-500 text-white px-4 py-2 rounded mb-4 ml-2"
+>
+  Save
+</button>
 
       <table className="w-full border">
         <thead>
