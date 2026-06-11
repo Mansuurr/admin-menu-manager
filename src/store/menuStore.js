@@ -1,8 +1,8 @@
 import { create } from "zustand";
 
-export const useMenuStore = create((set, get) => ({
-  menu: JSON.parse(localStorage.getItem("menu")) || [
-    { name: "Users", link: "/users", role: "admin", icon: "user" }
+export const useMenuStore = create((set) => ({
+  menu: [
+    { name: "Test User", link: "/test", role: "admin", icon: "user" }
   ],
 
   addItem: (item) =>
@@ -23,7 +23,6 @@ export const useMenuStore = create((set, get) => ({
     })),
 
   saveMenu: () => {
-    const menu = get().menu;
-    localStorage.setItem("menu", JSON.stringify(menu));
+    localStorage.setItem("menu", JSON.stringify([]));
   },
 }));
